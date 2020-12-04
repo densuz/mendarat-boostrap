@@ -1,0 +1,17 @@
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.*)$ $1.php
+RewriteRule ^login/([^/\.]+)/?$ login.php?id=$1 [L]
+RewriteRule ^admin/([^/\.]+)/?$ admin.php?id=$1 [L]
+RewriteRule ^user/([^/\.]+)/?$ user.php?id=$1 [L]
+Options All -Indexes
+AddHandler application/x-httpd-php .html
+Options +FollowSymLinks
+RewriteCond %{HTTP_HOST} ^localhost:8080/web
+RewriteRule (.*) http://localhost:8080/$1 [R=301,L]
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.php\ HTTP/
+RewriteRule ^index\.php$ http://localhost:8080/web [R=301,L]
+</IfModule>
+
